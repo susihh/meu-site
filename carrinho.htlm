@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de Compras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .cart-item button {
+            background-color: #dc3545;
+            color: white;
+            padding: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .cart-item button:hover {
+            background-color: #c82333;
+        }
+        #total {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Carrinho de Compras</h1>
+</header>
+
+<nav>
+    <a href="index.html">Início</a>
+    <a href="livros.html">Livros</a>
+    <a href="carrinho.html">Carrinho</a>
+    <a href="contato.html">Contato</a>
+</nav>
+
+
+<div class="container">
+    <h2>Itens no Carrinho</h2>
+    <div id="cart-items"></div>
+    <p id="total">Total: R$ 0,00</p>
+</div>
+
+<script>
+    let cart = [
+        { title: "O Senhor dos Anéis", price: 39.90 },
+        { title: "Dom Casmurro", price: 29.90 },
+        { title: "1984", price: 39.90 }
+    ];
+
+    function updateCart() {
+        let cartContainer = document.getElementById("cart-items");
+        let total = 0;
+        cartContainer.innerHTML = "";
+
+        cart.forEach((item, index) => {
+            let div = document.createElement("div");
+            div.classList.add("cart-item");
+            div.innerHTML = `<span>${item.title} - R$ ${item.price.toFixed(2)}</span> 
+                             <button onclick="removeItem(${index})">Remover</button>`;
+            cartContainer.appendChild(div);
+            total += item.price;
+        });
+
+        document.getElementById("total").innerText = `Total: R$ ${total.toFixed(2)}`;
+    }
+
+    function removeItem(index) {
+        cart.splice(index, 1);
+        updateCart();
+    }
+
+    updateCart();
+</script>
+
+</body>
+</html>
